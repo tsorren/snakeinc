@@ -1,9 +1,10 @@
 #include <stdio.h>
 #include <stdlib.h>
+#include <conio.h>
 #include <windows.h>
+#include <math.h>
 
 #include "mapa.h"
-#include "jugador.h"
 #include "render.h"
 #include "input.h"
 
@@ -11,6 +12,8 @@
 int main(void)
 {
     hideCursor();
+    setConsoleFontSize(25);
+    setScreenSize(MAP_SIZE * 2 + 18,  MAP_SIZE + 7);
     enableANSI();
     clearScreen();
     
@@ -46,13 +49,16 @@ int main(void)
         }
 
         modificacionesAplicar(&mapa, &modifs_mapa);
-        _sleep(200);
+        _sleep(160/(log10(snake.longitud + 15)));
     }
 
-    showCursor();
     resetColor();
-    moveTo(0, MAP_SIZE + 10);
     free(mapa);
-    
+    moveTo(PADDING_X * 2, MAP_SIZE + PADDING_X + 1);
+    printf("Fin del juego...");
+    _sleep(1000);
+    _getch();
+    showCursor();
+
     return 0;
 }

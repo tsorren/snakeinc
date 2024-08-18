@@ -2,8 +2,8 @@
 #include<stdlib.h>
 #include<time.h>
 
-#include "mapa.h"
 #include "jugador.h"
+#include "mapa.h"
 #include "render.h"
 
 /*
@@ -14,7 +14,6 @@ struct info_modificacion modificacionesPop(struct una_modificacion **);
 void modificacionesAplicar(char ***, struct una_modificacion **);
 
 */
-
 
 char** mapaInicializar(struct una_modificacion **modifs, struct una_snake snake, struct una_comida* comida)
 {

@@ -54,7 +54,7 @@ bool snakePuedeMoverse(int x, int y, char **mapa, bool* comio)
     return noSeChoca && noSeSale;
 }
 
-void snakeMoverse(struct una_snake *snake, char ***mapa, struct una_modificacion **modifs, bool* loop, bool* comio)
+void snakeMoverse(struct una_snake *snake, char ***mapa, struct una_modificacion **modifs, bool *loop, bool *comio)
 {
     struct una_parte *cuerpo = snake->cabeza;
     struct info_modificacion infoMod;

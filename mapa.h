@@ -8,7 +8,7 @@
 #define C_BODY 'o'
 #define C_FOOD '+'
 
-#define MAP_SIZE 15
+#define MAP_SIZE 20
 
 struct una_snake;
 

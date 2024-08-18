@@ -1,6 +1,9 @@
 #ifndef RENDER_H_INCLUDED
 #define RENDER_H_INCLUDED
 
+#define PADDING_X 5
+#define PADDING_Y 5
+
 #define FBLK 30
 #define FRED 31
 #define FGRN 32
@@ -19,6 +22,8 @@
 #define BCYA 46
 #define BWHT 47
 
+void setConsoleFontSize(int);
+void setScreenSize(int, int);
 void enableANSI();
 void clearScreen();
 

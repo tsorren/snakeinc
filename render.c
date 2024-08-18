@@ -1,9 +1,65 @@
 #include <stdio.h>
 #include <windows.h>
+#include <conio.h>
+
 #include "render.h"
 
-#define PADDING_X 5
-#define PADDING_Y 5
+void setConsoleFontSize(int fontSize) {
+    HANDLE hConsole = GetStdHandle(STD_OUTPUT_HANDLE);
+    if (hConsole == INVALID_HANDLE_VALUE) {
+        printf("Error: Unable to get handle to console.\n");
+        return;
+    }
+
+    CONSOLE_FONT_INFOEX cfi;
+    cfi.cbSize = sizeof(CONSOLE_FONT_INFOEX);
+    if (!GetCurrentConsoleFontEx(hConsole, FALSE, &cfi)) {
+        printf("Error: Unable to get current console font info.\n");
+        return;
+    }
+
+    // Establecer el tamaño de la fuente
+    cfi.dwFontSize.X = fontSize;
+    cfi.dwFontSize.Y = fontSize;
+
+    if (!SetCurrentConsoleFontEx(hConsole, FALSE, &cfi)) {
+        printf("Error: Unable to set console font size.\n");
+        return;
+    }
+
+    printf("Font size changed to %d x %d.\n", fontSize, fontSize);
+}
+void setScreenSize(int width, int height)
+{
+    HANDLE hConsole = GetStdHandle(STD_OUTPUT_HANDLE);
+    if (hConsole == INVALID_HANDLE_VALUE) {
+        printf("Error: Unable to get handle to console.\n");
+        return;
+    }
+
+    // Definir el tamaño de la ventana de la consola
+    SMALL_RECT windowSize = {0, 0, width - 1, height - 1};
+    if (!SetConsoleWindowInfo(hConsole, TRUE, &windowSize)) {
+        printf("Error: Unable to set window size.\n");
+        return;
+    }
+
+    // Definir el tamaño del buffer de pantalla
+    COORD bufferSize = {width, height};
+    if (!SetConsoleScreenBufferSize(hConsole, bufferSize)) {
+        printf("Error: Unable to set screen buffer size.\n");
+        return;
+    }
+
+    // Verificar el tamaño actual del buffer y ventana
+    CONSOLE_SCREEN_BUFFER_INFO csbi;
+    if (GetConsoleScreenBufferInfo(hConsole, &csbi)) {
+        printf("Current buffer size: %d x %d\n", csbi.dwSize.X, csbi.dwSize.Y);
+        printf("Current window size: %d x %d\n", csbi.srWindow.Right - csbi.srWindow.Left + 1, csbi.srWindow.Bottom - csbi.srWindow.Top + 1);
+    } else {
+        printf("Error: Unable to get console screen buffer info.\n");
+    }
+}
 
 void enableANSI() {
     // Obtener el manejador de la consola
